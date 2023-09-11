@@ -29,7 +29,7 @@ public class MovementScript : MonoBehaviour
         moveValue = moveAction.ReadValue<Vector2>();
         rotateValue = rotateAction.ReadValue<Vector2>();
 
-        //rotate player and turret 
+        //rotate player and tank 
         transform.Rotate(Vector3.up, rotateValue.x * rotateSpeed * Time.deltaTime);
         weapon.transform.Rotate(Vector3.right, rotateValue.y * rotateSpeed * Time.deltaTime);
         //get current angles
@@ -55,7 +55,7 @@ public class MovementScript : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        //leftMoveValue the object
+        //move the object
         transform.Translate(new Vector3(moveValue.x, 0, moveValue.y) * moveSpeed * Time.deltaTime);
         transform.Rotate(Vector3.up, rotateValue.y * rotateSpeed * Time.deltaTime);
         weapon.transform.Rotate(Vector3.right, rotateValue.y * rotateSpeed * Time.deltaTime);
