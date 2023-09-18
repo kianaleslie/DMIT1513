@@ -5,7 +5,6 @@ using UnityEngine;
 public class TrampolineScript : MonoBehaviour
 {
     Rigidbody rb;
-    float jumpRate = 1.1f;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -13,8 +12,9 @@ public class TrampolineScript : MonoBehaviour
 
         if (rb != null)
         {
-            var speed = collision.relativeVelocity.y / jumpRate;
+            var speed = collision.relativeVelocity.y / 1.1f;
             rb.velocity = new Vector3(rb.velocity.x, -speed, rb.velocity.z);
         }
     }
+    //Ming helped me a bit with this exercise.
 }
