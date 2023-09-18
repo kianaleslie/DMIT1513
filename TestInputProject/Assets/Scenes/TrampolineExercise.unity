@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 179314565}
   m_Layer: 0
   m_Name: Trampoline
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -727,6 +727,10 @@ PrefabInstance:
     - target: {fileID: 7731567436039861226, guid: 2cebf11518a5b684d8cf55eb899717cc, type: 3}
       propertyPath: m_Name
       value: TrampolineModel
+      objectReference: {fileID: 0}
+    - target: {fileID: 7731567436039861226, guid: 2cebf11518a5b684d8cf55eb899717cc, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cebf11518a5b684d8cf55eb899717cc, type: 3}
