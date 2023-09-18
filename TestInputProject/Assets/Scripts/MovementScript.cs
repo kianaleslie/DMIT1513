@@ -15,7 +15,7 @@ public class MovementScript : MonoBehaviour
     float moveSpeed;
     float rotateSpeed;
     bool touchingGround = true;
-    [SerializeField] GameObject weapon;
+    //[SerializeField] GameObject weapon;
     void Start()
     {
         //initalize movement variable
@@ -31,17 +31,17 @@ public class MovementScript : MonoBehaviour
 
         //rotate player and tank 
         transform.Rotate(Vector3.up, rotateValue.x * rotateSpeed * Time.deltaTime);
-        weapon.transform.Rotate(Vector3.right, rotateValue.y * rotateSpeed * Time.deltaTime);
+       // weapon.transform.Rotate(Vector3.right, rotateValue.y * rotateSpeed * Time.deltaTime);
         //get current angles
-        angles = weapon.transform.eulerAngles;
+       // angles = weapon.transform.eulerAngles;
         //check if angles need to be clamped 
         if (angles.x > 45.0f && angles.x < 180.0f)
         {
-            weapon.transform.localRotation = Quaternion.Euler(45.0f, 0, 0); 
+         //   weapon.transform.localRotation = Quaternion.Euler(45.0f, 0, 0); 
         }
         if (angles.x < 315.0f && angles.x > 180.0f)
         {
-            weapon.transform.rotation = Quaternion.Euler(315.0f, 0, 0);
+          //  weapon.transform.rotation = Quaternion.Euler(315.0f, 0, 0);
         }
         var kB = Keyboard.current;
         if(kB != null)
@@ -58,7 +58,7 @@ public class MovementScript : MonoBehaviour
         //move the object
         transform.Translate(new Vector3(moveValue.x, 0, moveValue.y) * moveSpeed * Time.deltaTime);
         transform.Rotate(Vector3.up, rotateValue.y * rotateSpeed * Time.deltaTime);
-        weapon.transform.Rotate(Vector3.right, rotateValue.y * rotateSpeed * Time.deltaTime);
+       // weapon.transform.Rotate(Vector3.right, rotateValue.y * rotateSpeed * Time.deltaTime);
     }
     private void OnEnable()
     {
