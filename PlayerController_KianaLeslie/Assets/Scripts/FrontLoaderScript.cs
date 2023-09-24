@@ -1,7 +1,5 @@
-using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.GraphicsBuffer;
 
 public class FrontLoaderScript : MonoBehaviour
 {
@@ -40,18 +38,18 @@ public class FrontLoaderScript : MonoBehaviour
         bucketValue = bucketAction.ReadValue<Vector2>();
 
         //rotate turret left/right and barrel up/down
-        arm.transform.Rotate(Vector3.up, rotateValue.x * rotateSpeed * Time.deltaTime);
+        
         bucket.transform.Rotate(Vector3.left, bucketValue.y * rotateSpeed * Time.deltaTime);
     }
     private void FixedUpdate()
     {
-        //move and rotate objects
+        //move and rotate loader
         transform.Translate(new Vector3(moveValue.x, 0, moveValue.y) * moveSpeed * Time.deltaTime);
-        transform.Rotate(Vector3.up, rotateValue.y * rotateSpeed * Time.deltaTime);
+        transform.Rotate(Vector3.up, rotateValue.x * rotateSpeed * Time.deltaTime);
 
 
-        arm.transform.Rotate(Vector3.up, rotateValue.x * rotateSpeed * Time.deltaTime);
-        angles = arm.transform.localRotation.eulerAngles;
+        arm.transform.Rotate(Vector3.up, rotateValue.y * rotateSpeed * Time.deltaTime);
+       // angles = arm.transform.localRotation.eulerAngles;
 
         //clamp arms 60 degrees up
         if (angles.x > 25 && angles.x < 90)
@@ -67,7 +65,7 @@ public class FrontLoaderScript : MonoBehaviour
 
 
         bucket.transform.Rotate(Vector3.right, rotateValue.y * rotateSpeed * Time.deltaTime);
-        angles = bucket.transform.localRotation.eulerAngles;
+        //angles = bucket.transform.localRotation.eulerAngles;
 
         //clamp bucket rotation 40 degrees up 
         if (angles.x > 70 && angles.x < 90)
@@ -81,10 +79,10 @@ public class FrontLoaderScript : MonoBehaviour
         }
 
 
-        if (kb.escapeKey.wasPressedThisFrame)
-        {
-            Application.Quit();
-        }
+        //if (kb.escapeKey.wasPressedThisFrame)
+        //{
+        //    Application.Quit();
+        //}
     }
     private void OnEnable()
     {
