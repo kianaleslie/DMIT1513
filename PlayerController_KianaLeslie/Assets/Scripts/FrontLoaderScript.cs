@@ -1,3 +1,4 @@
+using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,7 +22,7 @@ public class FrontLoaderScript : MonoBehaviour
     [SerializeField] GameObject arm;
     [SerializeField] GameObject bucket;
 
-    Keyboard kb;
+    Keyboard kb = Keyboard.current;
 
     void Start()
     {
@@ -37,9 +38,9 @@ public class FrontLoaderScript : MonoBehaviour
         armValue = armAction.ReadValue<Vector2>();
         bucketValue = bucketAction.ReadValue<Vector2>();
 
-        //rotate turret left/right and barrel up/down
-        
+        //rotate the bucket and arm 
         bucket.transform.Rotate(Vector3.left, bucketValue.y * rotateSpeed * Time.deltaTime);
+        arm.transform.Rotate(Vector3.forward, armValue.y * rotateSpeed * Time.deltaTime);
     }
     private void FixedUpdate()
     {
@@ -47,25 +48,16 @@ public class FrontLoaderScript : MonoBehaviour
         transform.Translate(new Vector3(moveValue.x, 0, moveValue.y) * moveSpeed * Time.deltaTime);
         transform.Rotate(Vector3.up, rotateValue.x * rotateSpeed * Time.deltaTime);
 
-
-        arm.transform.Rotate(Vector3.up, rotateValue.y * rotateSpeed * Time.deltaTime);
-       // angles = arm.transform.localRotation.eulerAngles;
-
         //clamp arms 60 degrees up
         if (angles.x > 25 && angles.x < 90)
         {
             arm.transform.localRotation = Quaternion.Euler(25.0f, 0, 0);
         }
-
         //and 25 degrees down
         if (angles.x < 300 && angles.x > 270)
         {
             arm.transform.localRotation = Quaternion.Euler(300.0f, 0, 0);
         }
-
-
-        bucket.transform.Rotate(Vector3.right, rotateValue.y * rotateSpeed * Time.deltaTime);
-        //angles = bucket.transform.localRotation.eulerAngles;
 
         //clamp bucket rotation 40 degrees up 
         if (angles.x > 70 && angles.x < 90)
@@ -77,21 +69,19 @@ public class FrontLoaderScript : MonoBehaviour
         {
             bucket.transform.localRotation = Quaternion.Euler(320.0f, 0, 0);
         }
-
-
-        //if (kb.escapeKey.wasPressedThisFrame)
-        //{
-        //    Application.Quit();
-        //}
     }
     private void OnEnable()
     {
         moveAction.Enable();
         rotateAction.Enable();
+        armAction.Enable();
+        bucketAction.Enable();
     }
     private void OnDisable()
     {
         moveAction.Disable();
         rotateAction.Disable();
+        armAction.Disable();
+        bucketAction.Disable();
     }
 }
