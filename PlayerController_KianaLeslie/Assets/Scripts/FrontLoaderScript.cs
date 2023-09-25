@@ -1,20 +1,105 @@
 using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 
 public class FrontLoaderScript : MonoBehaviour
+//{
+//    //input and movement variables 
+//    public InputAction moveAction;
+//    public InputAction rotateAction;
+//    public InputAction armAction;
+//    public InputAction bucketAction;
+
+//    Vector2 moveValue;
+//    Vector2 rotateValue;
+//    Vector2 armValue;
+//    Vector2 bucketValue;
+//    Vector3 angles;
+
+//    float moveSpeed;
+//    float rotateSpeed;
+
+//    [SerializeField] GameObject arm;
+//    [SerializeField] GameObject bucket;
+
+//    void Start()
+//    {
+//        //initalize movement variables
+//        moveSpeed = 3.0f;
+//        rotateSpeed = 100.0f;
+//    }
+//    void Update()
+//    {
+//        //get player input 
+//        moveValue = moveAction.ReadValue<Vector2>();
+//        rotateValue = rotateAction.ReadValue<Vector2>();
+//        armValue = armAction.ReadValue<Vector2>();
+//        bucketValue = bucketAction.ReadValue<Vector2>();
+
+//        //rotate the bucket and arm 
+//        bucket.transform.Rotate(Vector3.left, bucketValue.y * rotateSpeed * Time.deltaTime);
+//        arm.transform.Rotate(Vector3.forward, armValue.y * rotateSpeed * Time.deltaTime);
+
+//        //clamp rotation of arms 60 degrees up and 25 degrees down
+//        arm.transform.Rotate(Vector3.right, armValue.x * rotateSpeed * Time.deltaTime);
+//        angles = arm.transform.localRotation.eulerAngles;
+//        if (angles.z > 60.0f && angles.z < 90.0f)
+//        {
+//            arm.transform.localRotation = Quaternion.Euler(0, 0, 60.0f);
+//        }
+//        if (angles.z < 335.0f && angles.z > 270.0f)
+//        {
+//            arm.transform.localRotation = Quaternion.Euler(0, 0, 335.0f);
+//        }
+
+//        //clamp the rotation of the bucket 40 degrees up and 70 degrees down  
+//        bucket.transform.Rotate(Vector3.left, bucketValue.x * rotateSpeed * Time.deltaTime);
+//        angles = bucket.transform.localRotation.eulerAngles;
+//        if (angles.x > 70.0f && angles.x < 90.0f)
+//        {
+//            bucket.transform.localRotation = Quaternion.Euler(70.0f, 0, 0);
+//        }
+//        if (angles.x < 320.0f && angles.x > 270.0f)
+//        {
+//            bucket.transform.localRotation = Quaternion.Euler(320.0f, 0, 0);
+//        }
+//    }
+//    private void FixedUpdate()
+//    {
+//        //move and rotate loader
+//        transform.Translate(new Vector3(moveValue.x, 0, moveValue.y) * moveSpeed * Time.deltaTime);
+//        transform.Rotate(Vector3.up, rotateValue.x * rotateSpeed * Time.deltaTime);   
+//    }
+//    private void OnEnable()
+//    {
+//        moveAction.Enable();
+//        rotateAction.Enable();
+//        armAction.Enable();
+//        bucketAction.Enable();
+//    }
+//    private void OnDisable()
+//    {
+//        moveAction.Disable();
+//        rotateAction.Disable();
+//        armAction.Disable();
+//        bucketAction.Disable();
+//    }
+//}
 {
     //input and movement variables 
     public InputAction moveAction;
     public InputAction rotateAction;
-    public InputAction armAction;
-    public InputAction bucketAction;
+
+    public InputAction armRotationAction;
+    public InputAction bucketRotationAction;
 
     Vector2 moveValue;
     Vector2 rotateValue;
-    Vector2 armValue;
-    Vector2 bucketValue;
-    Vector2 angles;
+    Vector2 armRotateValue;
+    Vector2 bucketRotateValue;
+
+    Vector3 angles;
 
     float moveSpeed;
     float rotateSpeed;
@@ -22,66 +107,67 @@ public class FrontLoaderScript : MonoBehaviour
     [SerializeField] GameObject arm;
     [SerializeField] GameObject bucket;
 
-    Keyboard kb = Keyboard.current;
-
     void Start()
     {
         //initalize movement variables
         moveSpeed = 3.0f;
-        rotateSpeed = 100.0f;
+        rotateSpeed = 80.0f;
     }
     void Update()
     {
         //get player input 
         moveValue = moveAction.ReadValue<Vector2>();
         rotateValue = rotateAction.ReadValue<Vector2>();
-        armValue = armAction.ReadValue<Vector2>();
-        bucketValue = bucketAction.ReadValue<Vector2>();
 
-        //rotate the bucket and arm 
-        bucket.transform.Rotate(Vector3.left, bucketValue.y * rotateSpeed * Time.deltaTime);
-        arm.transform.Rotate(Vector3.forward, armValue.y * rotateSpeed * Time.deltaTime);
+        armRotateValue = armRotationAction.ReadValue<Vector2>();
+        bucketRotateValue = bucketRotationAction.ReadValue<Vector2>();
     }
     private void FixedUpdate()
     {
+        //clamp rotation of arms 60 degrees up and 25 degrees down
+        arm.transform.Rotate(Vector3.forward, armRotateValue.y * rotateSpeed * Time.deltaTime);
+        //arm.transform.Rotate(Vector3.right, armValue.x * rotateSpeed * Time.deltaTime);
+        angles = arm.transform.localRotation.eulerAngles;
+        if (angles.z > 60.0f && angles.z < 90.0f)
+        {
+            arm.transform.localRotation = Quaternion.Euler(0, 0, 60.0f);
+        }
+        if (angles.z < 335.0f && angles.z > 270.0f)
+        {
+            arm.transform.localRotation = Quaternion.Euler(0, 0, 335.0f);
+        }
+
+        //clamp the rotation of the bucket 40 degrees up and 70 degrees down  
+        bucket.transform.Rotate(Vector3.left, bucketRotateValue.y * rotateSpeed * Time.deltaTime);
+        //bucket.transform.Rotate(Vector3.left, bucketValue.x * rotateSpeed * Time.deltaTime);
+        angles = bucket.transform.localRotation.eulerAngles;
+        if (angles.x > 70.0f && angles.x < 90.0f)
+        {
+            bucket.transform.localRotation = Quaternion.Euler(70.0f, 90, 0);
+        }
+        if (angles.x < 320.0f && angles.x > 270.0f)
+        {
+            bucket.transform.localRotation = Quaternion.Euler(320.0f, 90, 0);
+        }
+
         //move and rotate loader
         transform.Translate(new Vector3(moveValue.x, 0, moveValue.y) * moveSpeed * Time.deltaTime);
-        transform.Rotate(Vector3.up, rotateValue.x * rotateSpeed * Time.deltaTime);
-
-        //clamp arms 60 degrees up
-        if (angles.x > 25 && angles.x < 90)
-        {
-            arm.transform.localRotation = Quaternion.Euler(25.0f, 0, 0);
-        }
-        //and 25 degrees down
-        if (angles.x < 300 && angles.x > 270)
-        {
-            arm.transform.localRotation = Quaternion.Euler(300.0f, 0, 0);
-        }
-
-        //clamp bucket rotation 40 degrees up 
-        if (angles.x > 70 && angles.x < 90)
-        {
-            bucket.transform.localRotation = Quaternion.Euler(70.0f, 0, 0);
-        }
-        //and 70 degrees down
-        if (angles.x < 320 && angles.x > 270)
-        {
-            bucket.transform.localRotation = Quaternion.Euler(320.0f, 0, 0);
-        }
+        transform.Rotate(Vector3.up, rotateValue.x * rotateSpeed * Time.deltaTime);   
     }
     private void OnEnable()
     {
         moveAction.Enable();
         rotateAction.Enable();
-        armAction.Enable();
-        bucketAction.Enable();
+
+        armRotationAction.Enable();
+        bucketRotationAction.Enable();
     }
     private void OnDisable()
     {
         moveAction.Disable();
         rotateAction.Disable();
-        armAction.Disable();
-        bucketAction.Disable();
+
+        armRotationAction.Disable();
+        bucketRotationAction.Disable();
     }
 }
