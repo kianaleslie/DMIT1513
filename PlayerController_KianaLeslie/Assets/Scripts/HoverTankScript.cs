@@ -1,43 +1,55 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class HoverTankScript : MonoBehaviour
 {
+    //input variables
     public InputAction moveAction;
     public InputAction rotateAction;
     Vector2 moveValue;
     Vector2 rotateValue;
 
-    //force to move the tank 
-    public float moveForce = 10.0f;
     //rotation speed to rotate the tank 
-    public float rotateSpeed = 5.0f;
-    //height for the tank to hover 
-    public float hoverHeight = 1.0f;
+    float moveSpeed;
+    float rotateSpeed;
     //force for which the tank hovers 
-    public float hoverForce = 20.0f;
-    public float maxGroundDistance = 1.5f;
-    public float orientationSpeed = 2.0f;
-    
-    RaycastHit hit;
+    float hoverForce;
+    float maxGroundDistance;
 
-    private Rigidbody rbody;
+    RaycastHit hit;
+    private Rigidbody rb;
+
     private void Start()
     {
-        rbody = GetComponent<Rigidbody>();
-        maxGroundDistance = 1.0f;
+        rb = GetComponent<Rigidbody>();
+        maxGroundDistance = 2.0f;
+        rotateSpeed = 80.0f;
+        moveSpeed = 5.0f;
     }
     private void Update()
     {
+        //player input
         moveValue = moveAction.ReadValue<Vector2>();
         rotateValue = rotateAction.ReadValue<Vector2>();
     }
     private void FixedUpdate()
     {
-        //hoverforce and something to hold the tanks mass
+        //move and rotate the tank 
+        transform.Translate(new Vector3(moveValue.x, 0, moveValue.y) * moveSpeed * Time.deltaTime);
+        transform.Rotate(Vector3.up, rotateValue.x * rotateSpeed * Time.deltaTime);
 
+        //the hover force is the rigidbody mass 
+        hoverForce = rb.mass;
+
+       // rb.AddForce(Vector3.forward * (moveValue.x + moveValue.y) * moveSpeed);
+       //tank hovers using raycast and addforce
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, maxGroundDistance))
+        {
+            rb.AddForce(transform.up * (maxGroundDistance - hit.distance) / maxGroundDistance * hoverForce, ForceMode.Impulse);
+        }
     }
     private void OnEnable()
     {

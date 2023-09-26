@@ -48,11 +48,11 @@ public class FrontLoaderScript : MonoBehaviour
         angles = arm.transform.localRotation.eulerAngles;
         if (angles.z > 60.0f && angles.z < 90.0f)
         {
-            arm.transform.localRotation = Quaternion.Euler(0, 0, 60.0f);
+            arm.transform.localRotation = Quaternion.Euler(0, -86.882f, 60.0f);
         }
         if (angles.z < 335.0f && angles.z > 270.0f)
         {
-            arm.transform.localRotation = Quaternion.Euler(0, 0, 335.0f);
+            arm.transform.localRotation = Quaternion.Euler(0, -86.882f, 335.0f);
         }
 
         //clamp the rotation of the bucket 40 degrees up and 70 degrees down  

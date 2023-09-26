@@ -15,7 +15,7 @@ public class MovementScript : MonoBehaviour
     float moveSpeed;
     float rotateSpeed;
     bool touchingGround = true;
-    //[SerializeField] GameObject weapon;
+    [SerializeField] GameObject weapon;
     void Start()
     {
         //initalize movement variable
@@ -29,24 +29,25 @@ public class MovementScript : MonoBehaviour
         moveValue = moveAction.ReadValue<Vector2>();
         rotateValue = rotateAction.ReadValue<Vector2>();
 
-        //rotate player and tank 
+        //rotate player and weapon
         transform.Rotate(Vector3.up, rotateValue.x * rotateSpeed * Time.deltaTime);
-       // weapon.transform.Rotate(Vector3.right, rotateValue.y * rotateSpeed * Time.deltaTime);
+
+        weapon.transform.Rotate(Vector3.right, rotateValue.y * rotateSpeed * Time.deltaTime);
         //get current angles
-       // angles = weapon.transform.eulerAngles;
+        angles = weapon.transform.localEulerAngles;
         //check if angles need to be clamped 
         if (angles.x > 45.0f && angles.x < 180.0f)
         {
-         //   weapon.transform.localRotation = Quaternion.Euler(45.0f, 0, 0); 
+            weapon.transform.localRotation = Quaternion.Euler(45.0f, 0, 0);
         }
         if (angles.x < 315.0f && angles.x > 180.0f)
         {
-          //  weapon.transform.rotation = Quaternion.Euler(315.0f, 0, 0);
+            weapon.transform.rotation = Quaternion.Euler(315.0f, 0, 0);
         }
         var kB = Keyboard.current;
-        if(kB != null)
+        if (kB != null)
         {
-            if(kB.spaceKey.wasPressedThisFrame && touchingGround)
+            if (kB.spaceKey.wasPressedThisFrame && touchingGround)
             {
                 GetComponent<Rigidbody>().AddForce(Vector3.up * 300.0f * Time.deltaTime, ForceMode.Impulse/*VelocityChange*/);
                 touchingGround = false;
@@ -58,7 +59,7 @@ public class MovementScript : MonoBehaviour
         //move the object
         transform.Translate(new Vector3(moveValue.x, 0, moveValue.y) * moveSpeed * Time.deltaTime);
         transform.Rotate(Vector3.up, rotateValue.y * rotateSpeed * Time.deltaTime);
-       // weapon.transform.Rotate(Vector3.right, rotateValue.y * rotateSpeed * Time.deltaTime);
+        //weapon.transform.Rotate(Vector3.right, rotateValue.y * rotateSpeed * Time.deltaTime);
     }
     private void OnEnable()
     {
@@ -80,7 +81,7 @@ public class MovementScript : MonoBehaviour
     //}
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground"))
         {
             touchingGround = true;
         }
