@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Paintable
+  - Paintball
   layers:
   - Default
   - TransparentFX
