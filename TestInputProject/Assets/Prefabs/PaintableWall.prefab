@@ -110,4 +110,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12e269a2d560461469e7db6959a41266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  paintedMaterial: {fileID: 2100000, guid: 5080602b2a7a96b4bb5c618a013e1574, type: 2}
+  colour: {fileID: 2100000, guid: 5080602b2a7a96b4bb5c618a013e1574, type: 2}

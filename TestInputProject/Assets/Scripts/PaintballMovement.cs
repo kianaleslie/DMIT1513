@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,11 +13,13 @@ public class PaintballMovement : MonoBehaviour
     float moveSpeed;
     float rotateSpeed;
     [SerializeField] GameObject weapon;
+    Keyboard kb;
     void Start()
     {
         //initalize movement variable
-        moveSpeed = 2.0f;
+        moveSpeed = 4.0f;
         rotateSpeed = 100.0f;
+        kb = Keyboard.current;
     }
 
     void Update()
@@ -42,6 +42,10 @@ public class PaintballMovement : MonoBehaviour
         if (angles.x < 315.0f && angles.x > 180.0f)
         {
             weapon.transform.rotation = Quaternion.Euler(315.0f, 0, 0);
+        }
+        if (kb.escapeKey.wasPressedThisFrame)
+        {
+            Application.Quit();
         }
     }
     private void FixedUpdate()
