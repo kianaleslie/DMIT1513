@@ -15,10 +15,7 @@ public class CameraScript : MonoBehaviour
     }
     void Update()
     {
-        // Calculate the new X position based on time and speed
         float newX = startPos + Mathf.Sin(Time.time * speed) * distance;
-
-        // Update the camera's position
         transform.position = new Vector3(newX, transform.position.y, transform.position.z);
     }
 }
