@@ -21,7 +21,7 @@ public class PlayerScript : MonoBehaviour
     Keyboard kb;
     void Start()
     {
-        moveSpeed = 4.0f;
+        moveSpeed = 6.0f;
         rotateSpeed = 100.0f;
         kb = Keyboard.current;
     }
@@ -46,6 +46,16 @@ public class PlayerScript : MonoBehaviour
         {
             weapon.transform.rotation = Quaternion.Euler(315.0f, 0, 0);
         }
+
+        if (kb != null)
+        {
+            if (kb.spaceKey.wasPressedThisFrame && touchingGround)
+            {
+                GetComponent<Rigidbody>().AddForce(Vector3.up * 300.0f * Time.deltaTime, ForceMode.Impulse/*VelocityChange*/);
+                touchingGround = false;
+            }
+        }
+
         if (kb.escapeKey.wasPressedThisFrame)
         {
             Application.Quit();
@@ -66,5 +76,12 @@ public class PlayerScript : MonoBehaviour
     {
         moveAction.Disable();
         rotateAction.Disable();
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            touchingGround = true;
+        }
     }
 }
