@@ -8,6 +8,7 @@ public class PlayerScript : MonoBehaviour
     //variables 
     public InputAction moveAction;
     public InputAction rotateAction;
+    public InputAction shootAction;
 
     Vector2 moveValue;
     Vector2 rotateValue;
@@ -57,6 +58,12 @@ public class PlayerScript : MonoBehaviour
             }
         }
 
+        //shooting
+        if (shootAction.WasPressedThisFrame())
+        {
+            BroadcastMessage("Fire");
+        }
+
         //quit app 
         if (kb.escapeKey.wasPressedThisFrame)
         {
@@ -73,11 +80,13 @@ public class PlayerScript : MonoBehaviour
     {
         moveAction.Enable();
         rotateAction.Enable();
+        shootAction.Enable();
     }
     private void OnDisable()
     {
         moveAction.Disable();
         rotateAction.Disable();
+        shootAction.Disable();
     }
     private void OnCollisionEnter(Collision collision)
     {
