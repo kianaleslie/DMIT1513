@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 665873319576547951}
   - component: {fileID: 510072982422145401}
   m_Layer: 0
-  m_Name: PaintballModel
+  m_Name: BulletModel
   m_TagString: Paintball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5080602b2a7a96b4bb5c618a013e1574, type: 2}
+  - {fileID: 2100000, guid: eda93951a17873a4b9dd7878de91ac52, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

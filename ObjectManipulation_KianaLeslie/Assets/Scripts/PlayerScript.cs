@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerScript : MonoBehaviour
 {
+    //variables 
     public InputAction moveAction;
     public InputAction rotateAction;
 
@@ -19,8 +20,10 @@ public class PlayerScript : MonoBehaviour
     bool touchingGround;
     [SerializeField] GameObject weapon;
     Keyboard kb;
+
     void Start()
     {
+        //intialization 
         moveSpeed = 6.0f;
         rotateSpeed = 100.0f;
         kb = Keyboard.current;
@@ -33,11 +36,9 @@ public class PlayerScript : MonoBehaviour
 
         //rotate player and weapon
         transform.Rotate(Vector3.up, rotateValue.x * rotateSpeed * Time.deltaTime);
-
         weapon.transform.Rotate(Vector3.right, rotateValue.y * rotateSpeed * Time.deltaTime);
-        //get current angles
+
         angles = weapon.transform.localEulerAngles;
-        //check if angles need to be clamped 
         if (angles.x > 45.0f && angles.x < 180.0f)
         {
             weapon.transform.localRotation = Quaternion.Euler(45.0f, 0, 0);
@@ -47,6 +48,7 @@ public class PlayerScript : MonoBehaviour
             weapon.transform.rotation = Quaternion.Euler(315.0f, 0, 0);
         }
 
+        //jumping
         if (kb != null)
         {
             if (kb.spaceKey.wasPressedThisFrame && touchingGround)
@@ -56,6 +58,7 @@ public class PlayerScript : MonoBehaviour
             }
         }
 
+        //quit app 
         if (kb.escapeKey.wasPressedThisFrame)
         {
             Application.Quit();
