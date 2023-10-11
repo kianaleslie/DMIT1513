@@ -10,12 +10,10 @@ public class CameraSwitcher : MonoBehaviour
     public Camera firstPersonCam;
     public Camera sideCam;
     bool isFirstPersonView = false;
+    bool isInteracting = false;
 
-    //if an interaction is in progress
-    bool isInteracting = false; 
-
-    public Transform followingCameraPosition; 
-    public Transform interactionCameraPosition; 
+    public Transform followingCameraPosition;
+    public Transform interactionCameraPosition;
 
     Keyboard kb;
 
@@ -40,19 +38,18 @@ public class CameraSwitcher : MonoBehaviour
         }
         else
         {
-            //camera switching
+            //camera switch
             if (kb.pKey.wasPressedThisFrame && !isInteracting)
             {
                 isFirstPersonView = !isFirstPersonView;
                 thirdPersonCam.enabled = isFirstPersonView;
                 firstPersonCam.enabled = !isFirstPersonView;
 
-                //top-down cam is always enabled when not interacting
+                //top-down cam is always enabled 
                 topDownCam.enabled = true;
             }
             else if (!isInteracting)
             {
-                //camera positioning for following 
                 transform.position = followingCameraPosition.position;
                 transform.rotation = followingCameraPosition.rotation;
             }
@@ -63,10 +60,14 @@ public class CameraSwitcher : MonoBehaviour
     public void StartInteraction()
     {
         isInteracting = true;
+        sideCam.enabled = true;
+        sideCam.depth = 3;
     }
     public void EndInteraction()
     {
         isInteracting = false;
+        sideCam.enabled = false;
+        sideCam.depth = 0;
     }
 }
 

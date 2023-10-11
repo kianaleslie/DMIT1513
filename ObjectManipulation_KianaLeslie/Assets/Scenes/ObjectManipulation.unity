@@ -5192,7 +5192,7 @@ MonoBehaviour:
   thirdPersonCam: {fileID: 306199427}
   firstPersonCam: {fileID: 833881417}
   sideCam: {fileID: 1860799561}
-  followingCameraPosition: {fileID: 306199428}
+  followingCameraPosition: {fileID: 833881415}
   interactionCameraPosition: {fileID: 1860799562}
 --- !u!4 &1881571525
 Transform:

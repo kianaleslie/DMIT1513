@@ -61,14 +61,6 @@ public class PlayerScript : MonoBehaviour
                 }
             }
 
-            //if player gets close to NPC stop moving 
-            //if(player.transform.position == new Vector3(-0.76f, 1.29f, 24.14f))
-            //{
-            //    GameManager.gameActive = false;
-            //    sideCam.enabled = true;
-            //    sideCam.depth = 1;
-            //}
-
             //shooting
             if (shootAction.WasPressedThisFrame())
             {
