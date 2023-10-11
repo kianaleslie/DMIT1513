@@ -7,7 +7,7 @@ using TMPro;
 public class NPCInteractionScript : MonoBehaviour
 {
     public GameObject uiObject;
-    [SerializeField] Camera sideCam;
+    
     private void Start()
     {
         //start not showing ui 

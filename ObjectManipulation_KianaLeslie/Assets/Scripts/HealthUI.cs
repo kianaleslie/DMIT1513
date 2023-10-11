@@ -8,6 +8,7 @@ public class HealthUI : MonoBehaviour
 {
     int maxHealth;
     int health;
+    public MapBehaviour enemy;
 
     [SerializeField] Image healthUI;
 
@@ -25,6 +26,7 @@ public class HealthUI : MonoBehaviour
         if (health <= 0)
         {
             gameObject.SetActive(false);
+            enemy.EnemyDefeated();
         }
     }
 }

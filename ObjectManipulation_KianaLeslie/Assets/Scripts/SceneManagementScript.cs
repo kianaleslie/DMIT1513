@@ -12,5 +12,4 @@ public class SceneManagementScript : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
-    
 }

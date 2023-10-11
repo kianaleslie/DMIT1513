@@ -20,6 +20,7 @@ public class PlayerScript : MonoBehaviour
     bool touchingGround;
     [SerializeField] GameObject weapon;
     Keyboard kb;
+    public Transform player;
 
     void Start()
     {
@@ -30,45 +31,56 @@ public class PlayerScript : MonoBehaviour
     }
     void Update()
     {
-        //get player input 
-        moveValue = moveAction.ReadValue<Vector2>();
-        rotateValue = rotateAction.ReadValue<Vector2>();
+        //if (GameManager.gameActive)
+        //{
+            //get player input 
+            moveValue = moveAction.ReadValue<Vector2>();
+            rotateValue = rotateAction.ReadValue<Vector2>();
 
-        //rotate player and weapon
-        transform.Rotate(Vector3.up, rotateValue.x * rotateSpeed * Time.deltaTime);
-        weapon.transform.Rotate(Vector3.right, rotateValue.y * rotateSpeed * Time.deltaTime);
+            //rotate player and weapon
+            transform.Rotate(Vector3.up, rotateValue.x * rotateSpeed * Time.deltaTime);
+            weapon.transform.Rotate(Vector3.right, rotateValue.y * rotateSpeed * Time.deltaTime);
 
-        angles = weapon.transform.localEulerAngles;
-        if (angles.x > 45.0f && angles.x < 180.0f)
-        {
-            weapon.transform.localRotation = Quaternion.Euler(45.0f, 0, 0);
-        }
-        if (angles.x < 315.0f && angles.x > 180.0f)
-        {
-            weapon.transform.rotation = Quaternion.Euler(315.0f, 0, 0);
-        }
-
-        //jumping
-        if (kb != null)
-        {
-            if (kb.spaceKey.wasPressedThisFrame && touchingGround)
+            angles = weapon.transform.localEulerAngles;
+            if (angles.x > 45.0f && angles.x < 180.0f)
             {
-                GetComponent<Rigidbody>().AddForce(Vector3.up * 300.0f * Time.deltaTime, ForceMode.Impulse/*VelocityChange*/);
-                touchingGround = false;
+                weapon.transform.localRotation = Quaternion.Euler(45.0f, 0, 0);
             }
-        }
+            if (angles.x < 315.0f && angles.x > 180.0f)
+            {
+                weapon.transform.rotation = Quaternion.Euler(315.0f, 0, 0);
+            }
 
-        //shooting
-        if (shootAction.WasPressedThisFrame())
-        {
-            BroadcastMessage("Fire");
-        }
+            //jumping
+            if (kb != null)
+            {
+                if (kb.spaceKey.wasPressedThisFrame && touchingGround)
+                {
+                    GetComponent<Rigidbody>().AddForce(Vector3.up * 300.0f * Time.deltaTime, ForceMode.Impulse/*VelocityChange*/);
+                    touchingGround = false;
+                }
+            }
 
-        //quit app 
-        if (kb.escapeKey.wasPressedThisFrame)
-        {
-            Application.Quit();
-        }
+            //if player gets close to NPC stop moving 
+            //if(player.transform.position == new Vector3(-0.76f, 1.29f, 24.14f))
+            //{
+            //    GameManager.gameActive = false;
+            //    sideCam.enabled = true;
+            //    sideCam.depth = 1;
+            //}
+
+            //shooting
+            if (shootAction.WasPressedThisFrame())
+            {
+                BroadcastMessage("Fire");
+            }
+
+            //quit app 
+            if (kb.escapeKey.wasPressedThisFrame)
+            {
+                Application.Quit();
+            }
+        //}
     }
     private void FixedUpdate()
     {
