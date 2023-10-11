@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class MapBehaviour : MonoBehaviour
 {
-   
+
     public Image mapImage;
     public Image youAreHereImage;
     public Image xImage;
@@ -14,8 +14,8 @@ public class MapBehaviour : MonoBehaviour
     public TMP_Text xText;
     public TMP_Text itemCountText;
 
-     int itemCount = 0;
-    int enemyCount = 3; 
+    int itemCount = 0;
+    int enemyCount = 3;
 
     private void Start()
     {
@@ -31,25 +31,23 @@ public class MapBehaviour : MonoBehaviour
 
     public void EnemyDefeated()
     {
-        // Called when an enemy is defeated.
         enemyCount--;
 
-        // Check if the player has defeated all 3 enemies.
+        //check if the player has defeated all 3 enemies
         if (enemyCount == 0)
         {
-            // Show the map image when all 3 enemies are defeated.
+            //show the map when enemies = 0
             mapImage.enabled = true;
-            youAreHereImage.enabled = true; 
+            youAreHereImage.enabled = true;
             xImage.enabled = true;
             youAreHereText.enabled = true;
-            xText.enabled = true;   
+            xText.enabled = true;
             itemCount = 1;
         }
 
-        // Update the UI Text with the current item count.
+        //update the UI text with the current item count
         UpdateItemCountText();
     }
-
     private void UpdateItemCountText()
     {
         itemCountText.text = "Items: " + itemCount.ToString();
