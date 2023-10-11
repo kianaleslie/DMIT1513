@@ -9,11 +9,14 @@ public class CameraSwitcher : MonoBehaviour
     public Camera topDownCam;
     public Camera thirdPersonCam;
     public Camera firstPersonCam;
+    public Camera sideCam;
     bool isFirstPersonView = false;
-    bool isInteracting = false; // Flag to determine if an interaction is in progress.
 
-    public Transform followingCameraPosition; // Add this for the camera's follow position.
-    public Transform interactionCameraPosition; // Add this for the camera's interaction position.
+    //if an interaction is in progress
+    bool isInteracting = false; 
+
+    public Transform followingCameraPosition; 
+    public Transform interactionCameraPosition; 
 
     Keyboard kb;
 
@@ -23,49 +26,52 @@ public class CameraSwitcher : MonoBehaviour
         topDownCam.enabled = true;
         thirdPersonCam.enabled = true;
         firstPersonCam.enabled = false;
+        sideCam.enabled = false;
     }
 
     void Update()
     {
         if (isInteracting)
         {
-            // Handle camera positioning for the interaction.
+            //handle camera positioning for the interaction
             transform.position = interactionCameraPosition.position;
             transform.rotation = interactionCameraPosition.rotation;
+            sideCam.enabled = true;
+            sideCam.depth = 3;
         }
         else
         {
-            // Handle camera switching logic.
+            //camera switching
             if (kb.pKey.wasPressedThisFrame && !isInteracting)
             {
                 isFirstPersonView = !isFirstPersonView;
                 thirdPersonCam.enabled = isFirstPersonView;
                 firstPersonCam.enabled = !isFirstPersonView;
 
-                // Ensure the top-down cam is always enabled when not interacting.
+                //top-down cam is always enabled when not interacting
                 topDownCam.enabled = true;
             }
             else if (!isInteracting)
             {
-                // Handle camera positioning for following mode.
+                //camera positioning for following 
                 transform.position = followingCameraPosition.position;
                 transform.rotation = followingCameraPosition.rotation;
             }
+            sideCam.enabled = false;
+            sideCam.depth = 0;
         }
     }
-
-    // Call this method to start an interaction.
     public void StartInteraction()
     {
         isInteracting = true;
     }
-
-    // Call this method to end an interaction.
     public void EndInteraction()
     {
         isInteracting = false;
     }
 }
+
+//simple version without side cam stuff
 //{
 //    public Camera topDownCam;
 //    public Camera thirdPersonCam;

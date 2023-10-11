@@ -6,13 +6,14 @@ using UnityEngine.UI;
 
 public class MapBehaviour : MonoBehaviour
 {
-
     public Image mapImage;
     public Image youAreHereImage;
     public Image xImage;
     public TMP_Text youAreHereText;
     public TMP_Text xText;
     public TMP_Text itemCountText;
+    [SerializeField] public GameObject treasureChest;
+    [SerializeField] public GameObject questCube;
 
     int itemCount = 0;
     int enemyCount = 3;
@@ -24,6 +25,8 @@ public class MapBehaviour : MonoBehaviour
         xImage.enabled = false;
         youAreHereText.enabled = false;
         xText.enabled = false;
+        treasureChest.SetActive(false);
+        questCube.SetActive(false);
 
         //initialize the UI text with the item count
         UpdateItemCountText();
@@ -42,14 +45,26 @@ public class MapBehaviour : MonoBehaviour
             xImage.enabled = true;
             youAreHereText.enabled = true;
             xText.enabled = true;
+            treasureChest.SetActive(true);
+            questCube.SetActive(true);
             itemCount = 1;
         }
 
         //update the UI text with the current item count
         UpdateItemCountText();
     }
-    private void UpdateItemCountText()
+    public void UpdateItemCountText()
     {
         itemCountText.text = "Items: " + itemCount.ToString();
+    }
+    public void ChestCollected()
+    {
+        itemCount = 10;
+        UpdateItemCountText();
+        mapImage.enabled = false;
+        youAreHereImage.enabled = false;
+        xImage.enabled = false;
+        youAreHereText.enabled = false;
+        xText.enabled = false;
     }
 }

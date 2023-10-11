@@ -25,7 +25,7 @@ public class PlayerScript : MonoBehaviour
     void Start()
     {
         //intialization 
-        moveSpeed = 6.0f;
+        moveSpeed = 15.0f;
         rotateSpeed = 100.0f;
         kb = Keyboard.current;
     }

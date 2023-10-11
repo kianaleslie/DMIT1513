@@ -30,7 +30,6 @@ public class WeaponScript : MonoBehaviour
         {
             instantiatedObject = Instantiate(bullet);
             instantiatedObject.SetActive(false);
-            //instantiatedObject.transform.SetParent(transform);
             bullets[i] = instantiatedObject;
             Physics.IgnoreCollision(GetComponentInChildren<Collider>(), instantiatedObject.GetComponentInChildren<Collider>());
         }
