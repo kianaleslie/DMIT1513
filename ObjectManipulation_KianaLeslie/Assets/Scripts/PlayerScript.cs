@@ -20,7 +20,6 @@ public class PlayerScript : MonoBehaviour
     bool touchingGround;
     [SerializeField] GameObject weapon;
     Keyboard kb;
-    public Transform player;
 
     void Start()
     {

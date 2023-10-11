@@ -60,14 +60,10 @@ public class CameraSwitcher : MonoBehaviour
     public void StartInteraction()
     {
         isInteracting = true;
-        sideCam.enabled = true;
-        sideCam.depth = 3;
     }
     public void EndInteraction()
     {
         isInteracting = false;
-        sideCam.enabled = false;
-        sideCam.depth = 0;
     }
 }
 
