@@ -11,7 +11,7 @@ public class PaintableObject : MonoBehaviour
             //colour change
             GetComponent<Renderer>().material = colour;
 
-            // Destroy the paintball
+            // Destroy the cannonBall
             Destroy(collision.gameObject);
         }
     }
