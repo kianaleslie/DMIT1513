@@ -4,13 +4,20 @@ using UnityEngine;
 
 public class DestroyObject : MonoBehaviour
 {
-   [SerializeField] AudioSource explosionAudio;
+    [SerializeField] AudioSource explosionAudio;
+    public ParticleSystem explosionSparks;
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("CannonBall"))
         {
-            explosionAudio.Play();
-            Destroy(collision.gameObject);
+            StartCoroutine("Wait");
         }
+    }
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(0.2f);
+        //Destroy(gameObject);
+        explosionAudio.Play();
+        explosionSparks.Play();
     }
 }
