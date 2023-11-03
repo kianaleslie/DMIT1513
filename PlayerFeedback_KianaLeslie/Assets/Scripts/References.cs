@@ -19,3 +19,9 @@
 
 //making unity appear dark 
 //https://www.youtube.com/watch?v=MDwVMaJ4mFc
+
+//lamp asset 
+//https://assetstore.unity.com/packages/3d/props/electronics/old-ussr-lamp-110400
+
+//crawler asset
+//https://assetstore.unity.com/packages/3d/true-horror-crawler-70609
