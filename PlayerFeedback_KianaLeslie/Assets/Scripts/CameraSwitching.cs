@@ -4,32 +4,25 @@ using UnityEngine;
 
 public class CameraSwitching : MonoBehaviour
 {
-    public RenderTexture[] cameraFeeds;
-    private Renderer screenRenderer;
-    private int currentCamera = 0;
-    private float timeToNextSwitch;
-    public float minSwitchTime = 2.0f;
-    public float maxSwitchTime = 5.0f;
+    public GameObject cameraScreen; 
+    public GameObject blackScreen; 
 
-    void Start()
+    public float switchInterval = 5.0f; 
+
+    private bool isCameraActive = true;
+
+    private void Start()
     {
-        screenRenderer = GetComponent<Renderer>();
-        timeToNextSwitch = Random.Range(minSwitchTime, maxSwitchTime);
-        screenRenderer.material.mainTexture = cameraFeeds[currentCamera];
-        StartCoroutine(SwitchCamera());
+        cameraScreen.SetActive(true);
+        blackScreen.SetActive(false);
+
+        InvokeRepeating("SwitchCamera", switchInterval, switchInterval);
     }
 
-    IEnumerator SwitchCamera()
+    private void SwitchCamera()
     {
-        while (true)
-        {
-            yield return new WaitForSeconds(timeToNextSwitch);
-
-            int randomCamera = Random.Range(0, cameraFeeds.Length);
-
-            screenRenderer.material.mainTexture = cameraFeeds[randomCamera];
-            currentCamera = randomCamera;
-            timeToNextSwitch = Random.Range(minSwitchTime, maxSwitchTime);
-        }
+        isCameraActive = !isCameraActive;
+        cameraScreen.SetActive(isCameraActive);
+        blackScreen.SetActive(!isCameraActive);
     }
 }

@@ -7,6 +7,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource bgMusic;
     public AudioSource computerAudio;
     public AudioSource doorAudio;
+    public AudioSource sparksAudio;
 
     private bool isAudioPaused = false;
 
@@ -40,6 +41,7 @@ public class AudioManager : MonoBehaviour
         bgMusic.Pause();
         computerAudio.Pause();
         doorAudio.Pause();
+        sparksAudio.Pause();
     }
 
     private void ResumeAudio()
@@ -47,5 +49,6 @@ public class AudioManager : MonoBehaviour
         bgMusic.UnPause();
         computerAudio.UnPause();
         doorAudio.UnPause();
+        sparksAudio.UnPause();
     }
 }
