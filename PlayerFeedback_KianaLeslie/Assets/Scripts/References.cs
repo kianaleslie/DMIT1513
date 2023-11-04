@@ -25,3 +25,6 @@
 
 //crawler asset
 //https://assetstore.unity.com/packages/3d/true-horror-crawler-70609
+
+//pause menu 
+//https://www.youtube.com/watch?v=JivuXdrIHK0&t=62s
