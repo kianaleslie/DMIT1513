@@ -30,5 +30,10 @@ public class LightAudio : MonoBehaviour
         {
             audioSource.time = loopStart;
         }
+
+        if(PauseMenuManager.gamePaused)
+        {
+            audioSource.Pause();
+        }
     }
 }
