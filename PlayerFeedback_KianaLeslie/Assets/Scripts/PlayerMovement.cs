@@ -12,13 +12,11 @@ public class PlayerMovement : MonoBehaviour
     Vector2 rotateValue;
     float moveSpeed;
     float rotateSpeed;
-    Keyboard kb;
 
     void Start()
     {
         moveSpeed = 2.0f;
         rotateSpeed = 150.0f;
-        kb = Keyboard.current;
     }
     void Update()
     {
@@ -30,10 +28,6 @@ public class PlayerMovement : MonoBehaviour
     {
         transform.Translate(new Vector3(moveValue.x, 0, moveValue.y) * moveSpeed * Time.deltaTime);
         transform.Rotate(Vector3.up, rotateValue.y * rotateSpeed * Time.deltaTime);
-        if(kb.escapeKey.wasPressedThisFrame)
-        {
-            GameSceneManager.LoadPauseMenu();
-        }
     }
     private void OnEnable()
     {
