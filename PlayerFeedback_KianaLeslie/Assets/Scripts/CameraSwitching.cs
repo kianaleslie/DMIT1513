@@ -7,7 +7,7 @@ public class CameraSwitching : MonoBehaviour
     public GameObject cameraScreen; 
     public GameObject blackScreen; 
 
-    public float switchInterval = 5.0f; 
+    public float switchInterval = 0.5f; 
 
     private bool isCameraActive = true;
 

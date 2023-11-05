@@ -31,3 +31,6 @@
 
 //sparks
 //https://www.youtube.com/watch?v=HV3g--GyEW0
+
+//smoke particle system 
+//https://www.youtube.com/watch?v=YwGS73QpPt0
