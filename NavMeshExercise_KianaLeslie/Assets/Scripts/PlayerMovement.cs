@@ -49,6 +49,10 @@ public class PlayerMovement : MonoBehaviour
         }
 
         FollowPlayer();
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            Application.Quit();
+        }
         //if (Input.GetMouseButtonDown(0))
         //{
         //    Ray ray = cam.ScreenPointToRay(Input.mousePosition);
