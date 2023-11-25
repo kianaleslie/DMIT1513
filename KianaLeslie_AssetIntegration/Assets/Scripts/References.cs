@@ -1,12 +1,6 @@
 
-//wooden toy asset
-//https://assetstore.unity.com/packages/3d/props/children-s-wooden-toys-free-train-pack-179951
+//terrain stuff
+//https://www.youtube.com/watch?v=MWQv2Bagwgk
+//https://assetstore.unity.com/packages/3d/environments/landscapes/terrain-sample-asset-pack-145808
 
-//playground asset 
-//https://assetstore.unity.com/packages/3d/environments/playground-low-poly-191533
-
-//rubber duck asset
-//https://assetstore.unity.com/packages/3d/props/super-rubber-duck-pack-34781
-
-//block asset
-//https://assetstore.unity.com/packages/3d/environments/block-world-68107
+//
