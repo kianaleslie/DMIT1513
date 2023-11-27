@@ -6,54 +6,75 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    //input variables
     public InputAction moveAction;
     public InputAction rotateAction;
     Vector2 moveValue;
     Vector2 rotateValue;
     Vector2 angles;
-    //movement variables
     float moveSpeed;
     float rotateSpeed;
-    [SerializeField] GameObject weapon;
-    Keyboard kb;
+    [SerializeField] GameObject cameraRotation;
+    public bool instructions = false;
+    public GameObject instructionsUI;
+    public GameObject eKey;
 
     void Start()
     {
-        //initalize movement variable
         moveSpeed = 10.0f;
         rotateSpeed = 150.0f;
-        kb = Keyboard.current;
+        instructionsUI.SetActive(false);
+        eKey.SetActive(true);
     }
     void Update()
-    {
-        //get player input 
+    { 
         moveValue = moveAction.ReadValue<Vector2>();
         rotateValue = rotateAction.ReadValue<Vector2>();
 
-        //rotate player and weapon
         transform.Rotate(Vector3.up, rotateValue.x * rotateSpeed * Time.deltaTime);
 
-        weapon.transform.Rotate(Vector3.right, rotateValue.y * rotateSpeed * Time.deltaTime);
+        cameraRotation.transform.Rotate(Vector3.right, rotateValue.y * rotateSpeed * Time.deltaTime);
         //get current angles
-        angles = weapon.transform.localEulerAngles;
+        angles = cameraRotation.transform.localEulerAngles;
         //check if angles need to be clamped 
         if (angles.x > 45.0f && angles.x < 180.0f)
         {
-            weapon.transform.localRotation = Quaternion.Euler(45.0f, 0, 0);
+            cameraRotation.transform.localRotation = Quaternion.Euler(45.0f, 0, 0);
         }
         if (angles.x < 315.0f && angles.x > 180.0f)
         {
-            weapon.transform.rotation = Quaternion.Euler(315.0f, 0, 0);
+            cameraRotation.transform.localRotation = Quaternion.Euler(315.0f, 0, 0);
         }
-        if (kb.escapeKey.wasPressedThisFrame)
+
+        if(instructionsUI != null)
         {
-            Application.Quit();
-        }
+            instructions = !instructions;
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (instructions == true)
+                {
+                    ToggleInstructionsOn();
+                }
+                else
+                {
+                    ToggleInstructionsOff();
+                }
+            }
+        }  
+    }
+    void ToggleInstructionsOn()
+    {
+        instructions = true;
+        instructionsUI.SetActive(true);
+        eKey.SetActive(false);
+    }
+    void ToggleInstructionsOff()
+    {
+        instructions = false;
+        instructionsUI.SetActive(false);
+        eKey.SetActive(false);
     }
     private void FixedUpdate()
     {
-        //move the object
         transform.Translate(new Vector3(moveValue.x, 0, moveValue.y) * moveSpeed * Time.deltaTime);
         transform.Rotate(Vector3.up, rotateValue.y * rotateSpeed * Time.deltaTime);
     }
