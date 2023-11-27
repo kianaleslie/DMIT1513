@@ -6,31 +6,40 @@ using UnityEngine.AI;
 
 public class GameOverManager : MonoBehaviour
 {
-    public GameObject uiObject;
-    public GameObject cube;
-    public Camera gameOverCam;
-    public Camera cam;
+    //public GameObject uiObject;
+    //public GameObject cube;
+    //public Camera gameOverCam;
+    //public Camera cam;
 
-    void Start()
-    {
-        uiObject.SetActive(false);
-        cube.SetActive(true);
-    }
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Friend"))
-        {
-            gameOverCam.depth = 5;
-            cam.depth = -5;
-            uiObject.SetActive(true);
-            StartCoroutine("Wait");
-        }
-    }
-    
-    IEnumerator Wait()
-    {
-        yield return new WaitForSeconds(5);
-        uiObject.SetActive(false);
-        cube.SetActive(false);
-    }
+    //void Start()
+    //{
+    //    uiObject.SetActive(false);
+    //    cube.SetActive(true);
+    //}
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Friend"))
+    //    {
+    //        gameOverCam.depth = 5;
+    //        cam.depth = -5;
+    //        uiObject.SetActive(true);
+    //        StartCoroutine("Wait");
+    //    }
+    //}
+    ////private void OnTriggerEnter(Collider other)
+    ////{
+    ////    if (other.gameObject.tag == "Friend")
+    ////    {
+    ////        gameOverCam.depth = 5;
+    ////        cam.depth = -5;
+    ////        uiObject.SetActive(true);
+    ////        StartCoroutine("Wait");
+    ////    }
+    ////}
+    //IEnumerator Wait()
+    //{
+    //    yield return new WaitForSeconds(5);
+    //    uiObject.SetActive(false);
+    //    cube.SetActive(false);
+    //}
 }

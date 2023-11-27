@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     public bool instructions = false;
     public GameObject instructionsUI;
     public GameObject eKey;
+    public GameObject uiObject;
+    public Camera cam;
 
     void Start()
     {
@@ -24,6 +26,7 @@ public class Player : MonoBehaviour
         rotateSpeed = 150.0f;
         instructionsUI.SetActive(false);
         eKey.SetActive(true);
+        uiObject.SetActive(false);
     }
     void Update()
     { 
@@ -61,6 +64,15 @@ public class Player : MonoBehaviour
             }
         }  
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            StartCoroutine("Wait");
+            uiObject.SetActive(true);
+            cam.depth = 5;
+        }
+    }
     void ToggleInstructionsOn()
     {
         instructions = true;
@@ -87,5 +99,9 @@ public class Player : MonoBehaviour
     {
         moveAction.Disable();
         rotateAction.Disable();
+    }
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(15);
     }
 }
