@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        moveSpeed = 10.0f;
+        moveSpeed = 12.0f;
         rotateSpeed = 150.0f;
         instructionsUI.SetActive(false);
         eKey.SetActive(true);
