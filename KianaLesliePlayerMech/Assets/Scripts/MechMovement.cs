@@ -17,19 +17,32 @@ public class MechMovement : MonoBehaviour
     float moveSpeed;
     float baseRotateSpeed;
     float torsoRotateSpeed;
-   
+
+    AudioSource loopingSound;
 
     void Start()
     {
         moveSpeed = 12.0f;
         baseRotateSpeed = 150.0f;
         torsoRotateSpeed = 150.0f;
+
+        loopingSound = GetComponent<AudioSource>();
     }
     void Update()
     {
         moveValue = moveAction.ReadValue<Vector2>();
         baseRotationValue = baseRotationAction.ReadValue<Vector2>();
         torsoRotationValue = torsoRotationAction.ReadValue<Vector2>();
+
+        if (moveValue.magnitude > 0f && !loopingSound.isPlaying)
+        {
+            loopingSound.Play();
+        }
+        else
+            if (moveValue.magnitude == 0f && loopingSound.isPlaying)
+        {
+            loopingSound.Stop();
+        }
     }
     private void FixedUpdate()
     {
