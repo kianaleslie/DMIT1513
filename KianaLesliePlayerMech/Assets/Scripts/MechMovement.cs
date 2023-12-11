@@ -23,6 +23,8 @@ public class MechMovement : MonoBehaviour
     [SerializeField] GameObject torsoGameObject;
     [SerializeField] GameObject baseGameObject;
 
+    public InputAction shootAction;
+
     void Start()
     {
         moveSpeed = 10.0f;
@@ -60,6 +62,10 @@ public class MechMovement : MonoBehaviour
         {
             torsoGameObject.transform.localRotation = Quaternion.Euler(270.0f, 0, 0);
         }
+        if (shootAction.WasPressedThisFrame())
+        {
+            BroadcastMessage("Fire");
+        }
     }
 
     private void OnEnable()
@@ -67,11 +73,13 @@ public class MechMovement : MonoBehaviour
         moveAction.Enable();
         baseRotationAction.Enable();
         torsoRotationAction.Enable();
+        shootAction.Enable();
     }
     private void OnDisable()
     {
         moveAction.Disable();
         baseRotationAction.Disable();
         torsoRotationAction.Disable();
+        shootAction.Disable();
     }
 }

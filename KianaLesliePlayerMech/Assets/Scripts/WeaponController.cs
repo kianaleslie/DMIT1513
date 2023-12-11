@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public int[] inventory;
+    public GameObject[] weaponSlot;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        inventory = new int[4];
+        weaponSlot = new GameObject[4];
+
+        weaponSlot[0] = GameObject.FindGameObjectWithTag("Empty");
+        weaponSlot[1] = GameObject.FindGameObjectWithTag("Weapon 1");
+        weaponSlot[2] = GameObject.FindGameObjectWithTag("Weapon 2");
+        weaponSlot[3] = GameObject.FindGameObjectWithTag("Weapon 3");
     }
 }

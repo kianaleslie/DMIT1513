@@ -14,7 +14,6 @@ public class Health : MonoBehaviour
     [SerializeField] GameObject destructible;
     [SerializeField] GameObject explosionParticle;
 
-    // Start is called before the first frame update
     void Start()
     {
         maxHealth = 20;
