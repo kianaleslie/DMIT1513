@@ -9,6 +9,7 @@ public class EnemyController : MonoBehaviour
     int index = 0;
     public NavMeshAgent agent;
     public float speed = 5.0f;
+    
 
     void Start()
     {

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.GraphicsBuffer;
+using UnityEngine.InputSystem.HID;
 
 public class MechMovement : MonoBehaviour
 {
@@ -35,23 +37,27 @@ public class MechMovement : MonoBehaviour
     }
     void Update()
     {
-        moveValue = moveAction.ReadValue<Vector2>();
-        baseRotationValue = baseRotationAction.ReadValue<Vector2>();
-        torsoRotationValue = torsoRotationAction.ReadValue<Vector2>();
+        Move();
 
-        if (moveValue.magnitude > 0f && !loopingSound.isPlaying)
+        if (shootAction.WasPressedThisFrame())
         {
-            loopingSound.Play();
-        }
-        else
-            if (moveValue.magnitude == 0f && loopingSound.isPlaying)
-        {
-            loopingSound.Stop();
+            BroadcastMessage("Fire");
         }
     }
     private void FixedUpdate()
     {
+        //move mech
         transform.Translate(new Vector3(moveValue.x, 0, moveValue.y) * moveSpeed * Time.deltaTime);
+       
+    }
+    void Move()
+    {
+        //get input
+        moveValue = moveAction.ReadValue<Vector2>();
+        baseRotationValue = baseRotationAction.ReadValue<Vector2>();
+        torsoRotationValue = torsoRotationAction.ReadValue<Vector2>();
+
+        //rotation and clamping
         transform.Rotate(Vector3.up, baseRotationValue.x * baseRotateSpeed * Time.deltaTime);
 
         torsoGameObject.transform.Rotate(Vector3.up, torsoRotationValue.x * torsoRotateSpeed * Time.deltaTime);
@@ -62,10 +68,18 @@ public class MechMovement : MonoBehaviour
         {
             torsoGameObject.transform.localRotation = Quaternion.Euler(270.0f, 0, 0);
         }
-        if (shootAction.WasPressedThisFrame())
+
+        //movement sound
+        if (moveValue.magnitude > 0f && !loopingSound.isPlaying)
         {
-            BroadcastMessage("Fire");
+            loopingSound.Play();
         }
+        else
+            if (moveValue.magnitude == 0f && loopingSound.isPlaying)
+        {
+            loopingSound.Stop();
+        }
+
     }
 
     private void OnEnable()
