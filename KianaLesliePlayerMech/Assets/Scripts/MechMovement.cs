@@ -12,7 +12,7 @@ public class MechMovement : MonoBehaviour
     Vector2 moveValue;
     Vector2 baseRotationValue;
     Vector2 torsoRotationValue;
-    //Vector2 angles; 
+    Vector2 angles;
 
     float moveSpeed;
     float baseRotateSpeed;
@@ -20,9 +20,12 @@ public class MechMovement : MonoBehaviour
 
     AudioSource loopingSound;
 
+    [SerializeField] GameObject torsoGameObject;
+    [SerializeField] GameObject baseGameObject;
+
     void Start()
     {
-        moveSpeed = 12.0f;
+        moveSpeed = 10.0f;
         baseRotateSpeed = 150.0f;
         torsoRotateSpeed = 150.0f;
 
@@ -47,9 +50,18 @@ public class MechMovement : MonoBehaviour
     private void FixedUpdate()
     {
         transform.Translate(new Vector3(moveValue.x, 0, moveValue.y) * moveSpeed * Time.deltaTime);
-        transform.Rotate(Vector3.up, baseRotationValue.y * baseRotateSpeed * Time.deltaTime);
-        transform.Rotate(Vector3.up, torsoRotationValue.y * torsoRotateSpeed * Time.deltaTime);
+        transform.Rotate(Vector3.up, baseRotationValue.x * baseRotateSpeed * Time.deltaTime);
+
+        torsoGameObject.transform.Rotate(Vector3.up, torsoRotationValue.x * torsoRotateSpeed * Time.deltaTime);
+
+        angles = torsoGameObject.transform.eulerAngles;
+
+        if (angles.x > 270.0f && angles.x < 90.0f)
+        {
+            torsoGameObject.transform.localRotation = Quaternion.Euler(270.0f, 0, 0);
+        }
     }
+
     private void OnEnable()
     {
         moveAction.Enable();
