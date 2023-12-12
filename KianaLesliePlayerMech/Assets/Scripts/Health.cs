@@ -16,7 +16,7 @@ public class Health : MonoBehaviour
 
     void Start()
     {
-        maxHealth = 20;
+        maxHealth = 40;
         currentHealth = maxHealth;
         healthValue.text = currentHealth.ToString();
     }

@@ -10,14 +10,10 @@ public class MechMovement : MonoBehaviour
     public InputAction moveAction;
     public InputAction baseRotationAction;
     public InputAction torsoRotationAction;
-    public InputAction leftShoulderRotationAction;
-    public InputAction rightShoulderRotationAction;
 
     Vector2 moveValue;
     Vector2 baseRotationValue;
     Vector2 torsoRotationValue;
-    Vector2 leftShoulderRotationValue;
-    Vector2 rightShoulderRotationValue;
     Vector2 angles;
     Vector2 shoulderAngles;
 
@@ -31,7 +27,7 @@ public class MechMovement : MonoBehaviour
     [SerializeField] GameObject leftShoulderObject;
     [SerializeField] GameObject rightShoulderObject;
 
-    public InputAction shootAction;
+    public InputAction shootAction1;
 
     void Start()
     {
@@ -44,7 +40,7 @@ public class MechMovement : MonoBehaviour
     {
         Move();
 
-        if (shootAction.WasPressedThisFrame())
+        if (shootAction1.WasPressedThisFrame())
         {
             BroadcastMessage("Fire");
         }
@@ -52,8 +48,7 @@ public class MechMovement : MonoBehaviour
     private void FixedUpdate()
     {
         //move mech
-        transform.Translate(new Vector3(moveValue.x, 0, moveValue.y) * moveSpeed * Time.deltaTime);
-       
+        transform.Translate(new Vector3(moveValue.x, 0, moveValue.y) * moveSpeed * Time.deltaTime); 
     }
     void Move()
     {
@@ -65,16 +60,6 @@ public class MechMovement : MonoBehaviour
         //rotation and clamping
         transform.Rotate(Vector3.up, baseRotationValue.x * rotateSpeed * Time.deltaTime);
 
-        //angles = torsoGameObject.transform.eulerAngles;
-        //if (angles.x > 270.0f && angles.x < 90.0f)
-        //{
-        //    torsoGameObject.transform.localRotation = Quaternion.Euler(270.0f, 0, 0);
-        //}
-        //if (angles.x < 90.0f && angles.x > 90.0f)
-        //{
-        //    torsoGameObject.transform.localRotation = Quaternion.Euler(90.0f, 0, 0);
-        //}
-        //torsoGameObject.transform.Rotate(Vector3.up, torsoRotationValue.x * rotateSpeed * Time.deltaTime);
         TorsoRotation();
         ShoulderRotation();
 
@@ -132,17 +117,13 @@ public class MechMovement : MonoBehaviour
         moveAction.Enable();
         baseRotationAction.Enable();
         torsoRotationAction.Enable();
-        shootAction.Enable();
-        leftShoulderRotationAction.Enable();
-        rightShoulderRotationAction.Enable();
+        shootAction1.Enable();
     }
     private void OnDisable()
     {
         moveAction.Disable();
         baseRotationAction.Disable();
         torsoRotationAction.Disable();
-        shootAction.Disable();
-        leftShoulderRotationAction.Disable();
-        rightShoulderRotationAction.Disable();
+        shootAction1.Disable();
     }
 }

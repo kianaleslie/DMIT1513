@@ -1,11 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class BulletBehaviour : MonoBehaviour
 {
     int damage = 10;
+    [SerializeField] ParticleSystem explosion;
+    [SerializeField] AudioSource explosionSound;
+
     private void OnCollisionEnter(Collision collision)
     {
         Health health = collision.gameObject.GetComponent<Health>();
@@ -13,7 +13,8 @@ public class BulletBehaviour : MonoBehaviour
         {
             health.ApplyDamage(damage);
         }
-
+        explosion.Play();
+        explosionSound.Play();
         gameObject.SetActive(false);
     }
 }
