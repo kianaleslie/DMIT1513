@@ -10,6 +10,7 @@ TagManager:
   - Weapon 2
   - Weapon 3
   - Empty
+  - Ammo
   layers:
   - Default
   - TransparentFX

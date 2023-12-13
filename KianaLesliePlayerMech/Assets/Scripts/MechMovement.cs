@@ -27,7 +27,8 @@ public class MechMovement : MonoBehaviour
     [SerializeField] GameObject leftShoulderObject;
     [SerializeField] GameObject rightShoulderObject;
 
-    public InputAction shootAction1;
+    public InputAction shootAction;
+    public WeaponOneController weaponController;
 
     void Start()
     {
@@ -40,15 +41,24 @@ public class MechMovement : MonoBehaviour
     {
         Move();
 
-        if (shootAction1.WasPressedThisFrame())
+        if (shootAction.WasPressedThisFrame())
         {
-            BroadcastMessage("Fire");
+            weaponController.Fire();
         }
     }
     private void FixedUpdate()
     {
         //move mech
-        transform.Translate(new Vector3(moveValue.x, 0, moveValue.y) * moveSpeed * Time.deltaTime); 
+        transform.Translate(new Vector3(moveValue.x, 0, moveValue.y) * moveSpeed * Time.deltaTime);
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Ammo")
+        {
+            weaponController.currentAmmo += 50;
+            weaponController.UpdateAmmoText();
+            collision.gameObject.SetActive(false);
+        }
     }
     void Move()
     {
@@ -81,9 +91,9 @@ public class MechMovement : MonoBehaviour
         torsoGameObject.transform.Rotate(Vector3.up, verticleInput * rotateSpeed * Time.deltaTime);
 
         angles = torsoGameObject.transform.localEulerAngles;
-        if(angles.y < 270.0f && angles.y > 90.0f)
+        if (angles.y < 270.0f && angles.y > 90.0f)
         {
-            if(angles.y > 180.0f)
+            if (angles.y > 180.0f)
             {
                 torsoGameObject.transform.localRotation = Quaternion.Euler(0, 270.0f, 0);
             }
@@ -101,12 +111,12 @@ public class MechMovement : MonoBehaviour
         rightShoulderObject.transform.Rotate(Vector3.left, horizontialInput * rotateSpeed * Time.deltaTime);
 
         shoulderAngles = leftShoulderObject.transform.localEulerAngles;
-        if(shoulderAngles.x > 45.0f && shoulderAngles.x < 180.0f)
+        if (shoulderAngles.x > 45.0f && shoulderAngles.x < 180.0f)
         {
             leftShoulderObject.transform.localRotation = Quaternion.Euler(45.0f, 0, 0);
             rightShoulderObject.transform.localRotation = Quaternion.Euler(45.0f, 0, 0);
         }
-        if(shoulderAngles.x < 315.0f && shoulderAngles.x > 180.0f)
+        if (shoulderAngles.x < 315.0f && shoulderAngles.x > 180.0f)
         {
             leftShoulderObject.transform.localRotation = Quaternion.Euler(315.0f, 0, 0);
             rightShoulderObject.transform.localRotation = Quaternion.Euler(315.0f, 0, 0);
@@ -117,13 +127,13 @@ public class MechMovement : MonoBehaviour
         moveAction.Enable();
         baseRotationAction.Enable();
         torsoRotationAction.Enable();
-        shootAction1.Enable();
+        shootAction.Enable();
     }
     private void OnDisable()
     {
         moveAction.Disable();
         baseRotationAction.Disable();
         torsoRotationAction.Disable();
-        shootAction1.Disable();
+        shootAction.Disable();
     }
 }

@@ -3,8 +3,6 @@ using UnityEngine;
 public class BulletBehaviour : MonoBehaviour
 {
     int damage = 10;
-    [SerializeField] ParticleSystem explosion;
-    [SerializeField] AudioSource explosionSound;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -13,8 +11,6 @@ public class BulletBehaviour : MonoBehaviour
         {
             health.ApplyDamage(damage);
         }
-        explosion.Play();
-        explosionSound.Play();
         gameObject.SetActive(false);
     }
 }

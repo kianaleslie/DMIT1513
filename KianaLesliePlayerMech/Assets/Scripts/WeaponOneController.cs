@@ -16,10 +16,9 @@ public class WeaponOneController : MonoBehaviour
     [SerializeField] GameObject bulletSpawn;
     [SerializeField] GameObject[] bullets;
 
-    int currentAmmo = 20;
+    public int currentAmmo = 20;
     [SerializeField] TMP_Text weaponText;
-    [SerializeField] AudioClip sound;
-    AudioSource audioSource;
+    [SerializeField] AudioSource sound;
 
     void Start()
     {
@@ -29,8 +28,6 @@ public class WeaponOneController : MonoBehaviour
         velocity = 25.0f;
 
         weaponText.text = "Ammo ";
-        audioSource = GetComponent<AudioSource>();
-        audioSource.clip = sound;
 
         GameObject instantiatedObject;
 
@@ -52,7 +49,7 @@ public class WeaponOneController : MonoBehaviour
         }
         UpdateAmmoText();
     }
-    void Fire()
+    public void Fire()
     {
         if (bulletAmount > 0 && currentAmmo > 0 && Time.time > timeStamp + fireRate)
         {
@@ -65,7 +62,7 @@ public class WeaponOneController : MonoBehaviour
             bullets[index].SetActive(true);
             bullets[index].GetComponent<Rigidbody>().velocity = transform.forward * velocity;
 
-            audioSource.Play();
+            sound.Play();
 
             index++;
 
@@ -75,12 +72,12 @@ public class WeaponOneController : MonoBehaviour
             }
         }
     }
-    void ReloadAmmo()
+    public void ReloadAmmo()
     {
         int maxAmmo = 20;
         currentAmmo = maxAmmo;
     }
-    void UpdateAmmoText()
+    public void UpdateAmmoText()
     {
         weaponText.text = $"Ammo {currentAmmo}";
     }
