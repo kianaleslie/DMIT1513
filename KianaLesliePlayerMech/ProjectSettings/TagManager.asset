@@ -11,6 +11,10 @@ TagManager:
   - Weapon 3
   - Empty
   - Ammo
+  - pyramid
+  - plane
+  - FxTemporaire
+  - GroundWeapon
   layers:
   - Default
   - TransparentFX

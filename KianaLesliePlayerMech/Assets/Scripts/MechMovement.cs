@@ -30,12 +30,15 @@ public class MechMovement : MonoBehaviour
     public InputAction shootAction;
     public WeaponOneController weaponController;
 
+    [SerializeField] GameObject uiObject;
+
     void Start()
     {
         moveSpeed = 10.0f;
         rotateSpeed = 150.0f;
 
         loopingSound = GetComponent<AudioSource>();
+        uiObject.SetActive(false);
     }
     void Update()
     {
@@ -58,6 +61,20 @@ public class MechMovement : MonoBehaviour
             weaponController.currentAmmo += 50;
             weaponController.UpdateAmmoText();
             collision.gameObject.SetActive(false);
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("GroundWeapon"))
+        {
+            uiObject.SetActive(true);
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("GroundWeapon"))
+        {
+            uiObject.SetActive(false);
         }
     }
     void Move()

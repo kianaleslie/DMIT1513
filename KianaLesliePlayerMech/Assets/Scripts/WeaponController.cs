@@ -5,25 +5,30 @@ using TMPro;
 
 public class WeaponController : MonoBehaviour
 {
-    int slotSelected = 1;
+    int slotSelected;
 
     [SerializeField] GameObject firstSlot;
     [SerializeField] GameObject secondSlot;
     [SerializeField] GameObject thirdSlot;
     [SerializeField] GameObject fourthSlot;
 
-    [SerializeField] TMP_Text eText;
-    //[SerializeField] TMP_Text weaponText;
-    [SerializeField] float distance = 5f;
+    [SerializeField] TMP_Text activeWeapon;
+    string activeWeaponName;
 
-    GameObject currentWeaponOnGround;
-    //int currentAmmo = 100;
-
+    enum Weapon
+    {
+        Caliber,
+        Sniper,
+        Shotgun,
+        Empty
+    }
+    Weapon weapon = Weapon.Empty;
     private void Start()
     {
-        SelectWeapon(slotSelected);
-        eText.gameObject.SetActive(false);
-        //weaponText.text = "";
+        firstSlot.SetActive(false);
+        secondSlot.SetActive(false);
+        thirdSlot.SetActive(false);
+        fourthSlot.SetActive(false);
     }
     private void Update()
     {
@@ -59,17 +64,27 @@ public class WeaponController : MonoBehaviour
                 slotSelected = 4;
             }
         }
-        if (eText.gameObject.activeSelf && Input.GetKeyDown(KeyCode.E))
+        activeWeapon.text = $"Active Weapon: {activeWeaponName}";
+
+        switch (weapon)
         {
-            PickUpWeapon();
+            case Weapon.Caliber:
+                slotSelected = 1;
+                activeWeaponName = "Caliber";
+                break;
+            case Weapon.Sniper:
+                slotSelected = 2;
+                activeWeaponName = "Sniper";
+                break;
+            case Weapon.Shotgun:
+                slotSelected = 3;
+                activeWeaponName = "Shotgun";
+                break;
+            case Weapon.Empty:
+                slotSelected = 4;
+                activeWeaponName = "Empty Slot";
+                break;
         }
-
-        //if (Input.GetKeyDown(KeyCode.R))
-        //{
-        //    ReloadAmmo();
-        //}
-
-        //UpdateWeaponInfo();
     }
     void SwapSlot(int weaponType)
     {
@@ -79,6 +94,7 @@ public class WeaponController : MonoBehaviour
             secondSlot.SetActive(false);
             thirdSlot.SetActive(false);
             fourthSlot.SetActive(false);
+            weapon = Weapon.Empty;
         }
         if (weaponType == 2)
         {
@@ -86,6 +102,7 @@ public class WeaponController : MonoBehaviour
             secondSlot.SetActive(true);
             thirdSlot.SetActive(false);
             fourthSlot.SetActive(false);
+            weapon = Weapon.Shotgun;
         }
         if (weaponType == 3)
         {
@@ -93,6 +110,7 @@ public class WeaponController : MonoBehaviour
             secondSlot.SetActive(false);
             thirdSlot.SetActive(true);
             fourthSlot.SetActive(false);
+            weapon = Weapon.Sniper;
         }
         if (weaponType == 4)
         {
@@ -100,76 +118,7 @@ public class WeaponController : MonoBehaviour
             secondSlot.SetActive(false);
             thirdSlot.SetActive(false);
             fourthSlot.SetActive(true);
+            weapon = Weapon.Caliber;
         }
     }
-    void SelectWeapon(int weaponType)
-    {
-        slotSelected = weaponType;
-
-        firstSlot.SetActive(false);
-        secondSlot.SetActive(false);
-        thirdSlot.SetActive(false);
-        fourthSlot.SetActive(false);
-
-        switch (weaponType)
-        {
-            case 1:
-                firstSlot.SetActive(true);
-                break;
-            case 2:
-                secondSlot.SetActive(true);
-                break;
-            case 3:
-                thirdSlot.SetActive(true);
-                break;
-            case 4:
-                fourthSlot.SetActive(true);
-                break;
-        }
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        PickUpWeapon weaponPickup = other.GetComponent<PickUpWeapon>();
-        if (weaponPickup != null)
-        {
-            eText.gameObject.SetActive(true);
-            eText.text = "Press 'E' to pick up";
-            currentWeaponOnGround = weaponPickup.gameObject;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        eText.gameObject.SetActive(false);
-        currentWeaponOnGround = null;
-    }
-
-    void PickUpWeapon()
-    {
-        eText.gameObject.SetActive(false);
-        DropCurrentWeapon();
-        SelectWeapon(slotSelected);
-        currentWeaponOnGround = null;
-    }
-
-    void DropCurrentWeapon()
-    {
-        if (currentWeaponOnGround != null)
-        {
-            currentWeaponOnGround.transform.parent = null;
-            currentWeaponOnGround.transform.position = transform.position + transform.forward * 2f;
-            currentWeaponOnGround.SetActive(true);
-        }
-    }
-
-    //void ReloadAmmo()
-    //{
-    //    int maxAmmo = 30; 
-    //    currentAmmo = maxAmmo;
-    //}
-
-    //void UpdateWeaponInfo()
-    //{
-    //    weaponText.text = $"Slot {slotSelected}: Ammo {currentAmmo}";
-    //}
 }
