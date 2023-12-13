@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.GraphicsBuffer;
 using UnityEngine.InputSystem.HID;
+using Unity.VisualScripting;
 
 public class MechMovement : MonoBehaviour
 {
@@ -20,7 +21,8 @@ public class MechMovement : MonoBehaviour
     float moveSpeed;
     float rotateSpeed;
 
-    AudioSource loopingSound;
+
+    [SerializeField] AudioSource loopingSound;
 
     [SerializeField] GameObject torsoGameObject;
     [SerializeField] GameObject baseGameObject;
@@ -37,7 +39,7 @@ public class MechMovement : MonoBehaviour
         moveSpeed = 10.0f;
         rotateSpeed = 150.0f;
 
-        loopingSound = GetComponent<AudioSource>();
+        
         uiObject.SetActive(false);
     }
     void Update()
@@ -46,7 +48,7 @@ public class MechMovement : MonoBehaviour
 
         if (shootAction.WasPressedThisFrame())
         {
-            weaponController.Fire();
+            weaponController.Fire();  
         }
     }
     private void FixedUpdate()

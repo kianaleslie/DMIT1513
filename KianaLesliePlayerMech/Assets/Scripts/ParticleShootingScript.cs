@@ -11,6 +11,7 @@ public class ParticleShootingScript : MonoBehaviour
     [SerializeField] TMP_Text weaponText;
     public int currentAmmo = 200;
     Mouse mb;
+    [SerializeField] ParticleSystem muzzelFlash;
 
     private void Start()
     {
@@ -23,6 +24,7 @@ public class ParticleShootingScript : MonoBehaviour
         {
             Instantiate(particleSystemObject, transform.position, transform.rotation);
             audioSource.Play();
+            muzzelFlash.Play();
             currentAmmo--;
         }
         UpdateAmmoText();

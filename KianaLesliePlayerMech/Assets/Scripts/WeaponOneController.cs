@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class WeaponOneController : MonoBehaviour
@@ -19,6 +20,8 @@ public class WeaponOneController : MonoBehaviour
     public int currentAmmo = 20;
     [SerializeField] TMP_Text weaponText;
     [SerializeField] AudioSource sound;
+    [SerializeField] ParticleSystem muzzleFlash;
+
 
     void Start()
     {
@@ -63,7 +66,11 @@ public class WeaponOneController : MonoBehaviour
             bullets[index].GetComponent<Rigidbody>().velocity = transform.forward * velocity;
 
             sound.Play();
-
+            
+            //if (muzzleFlash != null && muzzleFlash.isPlaying)
+            //{
+            //    muzzleFlash.Play();
+            //}
             index++;
 
             if (index >= poolCount)
@@ -71,6 +78,7 @@ public class WeaponOneController : MonoBehaviour
                 index = 0;
             }
         }
+        
     }
     public void ReloadAmmo()
     {
